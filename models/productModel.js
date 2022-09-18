@@ -38,6 +38,13 @@ const productSchema = new mongoose.Schema(
   }
 );
 
+const brandSchema = new mongoose.Schema({
+  allBrands: [{ type: String }]
+}, {
+  collection: "brands"
+});
+
+const Brand = mongoose.model("brands", brandSchema);
 const Product = mongoose.model("product", productSchema);
 
-module.exports = Product;
+module.exports = {Product, Brand};

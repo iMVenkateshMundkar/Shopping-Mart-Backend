@@ -14,6 +14,8 @@ router.get("/", getAllProducts);
 // @desc    GET all products by id from db
 // @route   GET /api/products/;id
 // @access  Public
-router.get("/:id", getProductById);
+router.get("/product/:id", getProductById);
+
+router.get("/brands", getAllBrands);
 
 module.exports = router;
