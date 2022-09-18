@@ -1,14 +1,15 @@
+const { aggregate } = require("../models/productModel");
 const Product = require("../models/productModel");
 
 const getAllProducts = async (req, res) => {
   try {
     const sort = req.query.sort || null;
     const page = req.query.page || 1;
-    const size = 6;
-    console.log(page, sort, size);
+    const size = page == 6 ? 6 : 12;
     let products = [];
     if (sort === "priceAsc"){
       products = await Product.find({}).sort({priceDiscount: 1}).skip((page-1)*size).limit(size);
+      // products = products.reverse();
     }
     else if (sort === "priceDesc"){
       products = await Product.find({}).sort({priceDiscount: -1}).skip((page-1)*size).limit(size);
@@ -19,7 +20,6 @@ const getAllProducts = async (req, res) => {
     else{
       products = await Product.find({}).skip((page-1)*size).limit(size);
     }
-    console.log(products);
     res.json(products);
   } catch (error) {
     res.status(500).json({ err: error.message });
