@@ -3,12 +3,9 @@ const { Product, Brand } = require("../models/productModel");
 const getAllProducts = async (req, res) => {
   try {
     const sort = req.query.sort || null;
-    const brand = req.query.brand || null;
-    // const brandParams = req.query.brand ? {} : {brand: req.query.brand}; 
     const page = req.query.page || 1;
     const size = 12;
     let products = [];
-    console.log(brand);
     if (sort === "priceAsc") {
       products = await Product.find({}).sort({ priceDiscount: 1 }).skip((page - 1) * size).limit(size);
     }
@@ -21,7 +18,6 @@ const getAllProducts = async (req, res) => {
     else {
       products = await Product.find({}).skip((page - 1) * size).limit(size);
     }
-    // console.log(products);
     res.json(products);
   } catch (error) {
     res.status(500).json({ err: error.message });
